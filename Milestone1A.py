@@ -19,22 +19,22 @@ def typeTask(dic, s):
 
 
 def typeFlow(dic, s):
+    file.writelines(str(datetime.now())+";"+s+" Entry"+"\n")
     for key in dic['Activities']:
-        s = s+"."+key
+        # s = s+"."+key
         d = dic['Activities'][key]
         if d['Type'] == 'Flow':
-            typeFlow(d, s)
+            typeFlow(d, s+"."+key)
         else:
-            typeTask(d, s)
+            typeTask(d, s+"."+key)
+    file.writelines(str(datetime.now())+";"+s+" Exit"+"\n")
 
 
 # Open the file and load the file
 with open('Milestone1A.yaml') as f:
     data = yaml.load(f, Loader=SafeLoader)
     s = next(iter(data))
-    file.writelines(str(datetime.now())+";"+next(iter(data))+" Entry"+'\n')
     typeFlow(data['M1A_Workflow'], s)
-
     # fun(data['M1A_Workflow']['Activities'])
 
 
