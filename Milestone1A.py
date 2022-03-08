@@ -1,23 +1,21 @@
 # import pyyaml module
 import yaml
 import time
-import csv
 from datetime import datetime
 # datetime.now()
 from yaml.loader import SafeLoader
 
-file = open('log.csv', 'w')
-writer = csv.writer(file)
+file = open('log.txt', 'w')
 
 
 def typeTask(dic, s):
     print(s)
-    writer.writerow(str(datetime.now())+";"+s+" Entry")
-    writer.writerow(str(datetime.now())+";"+s+" Executing " +
-                    dic['Function']+" ("+dic['Inputs']['FunctionInput']+", "+dic['Inputs']['ExecutionTime']+")")
+    file.writelines(str(datetime.now())+";"+s+" Entry"+"\n")
+    file.writelines(str(datetime.now())+";"+s+" Executing " +
+                    dic['Function']+" ("+dic['Inputs']['FunctionInput']+", "+dic['Inputs']['ExecutionTime']+")"+"\n")
     sleepTime = int(dic['Inputs']['ExecutionTime'])
     time.sleep(sleepTime)
-    writer.writerow(str(datetime.now())+";"+s+" Exit")
+    file.writelines(str(datetime.now())+";"+s+" Exit"+"\n")
 
 
 def typeFlow(dic, s):
@@ -34,7 +32,7 @@ def typeFlow(dic, s):
 with open('Milestone1A.yaml') as f:
     data = yaml.load(f, Loader=SafeLoader)
     s = next(iter(data))
-    writer.writerow(str(datetime.now())+";"+next(iter(data))+" Entry")
+    file.writelines(str(datetime.now())+";"+next(iter(data))+" Entry"+'\n')
     typeFlow(data['M1A_Workflow'], s)
 
     # fun(data['M1A_Workflow']['Activities'])
