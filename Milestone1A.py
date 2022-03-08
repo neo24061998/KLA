@@ -2,7 +2,6 @@
 import yaml
 import time
 from datetime import datetime
-# datetime.now()
 from yaml.loader import SafeLoader
 
 file = open('log.txt', 'w')
